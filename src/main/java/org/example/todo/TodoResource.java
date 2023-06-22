@@ -19,9 +19,9 @@ public class TodoResource {
     }
 
     @GET
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     @UnitOfWork
-    public List<TodoRepresentation> getAllTodos() {
+    public List<TodoRepresentation> getAllTodos(@BeanParam TodoRequest request) {
         List<TodoEntity> todos = todoDAO.findAll();
         return todos.stream()
                 .map(TodoRepresentation::new)
@@ -41,7 +41,7 @@ public class TodoResource {
 
     @GET
     @Path("/{id}")
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     @UnitOfWork
     public TodoRepresentation getTodoById(@PathParam("id") long id) {
         TodoEntity todo = todoDAO.findById(id)
